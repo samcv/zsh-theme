@@ -55,20 +55,16 @@ bureau_git_status() {
   fi
   
   # check status of local repository
-  #_INDEX=$(command git status -uno --porcelain -b 2> /dev/null)
   if [[ "$_INDEX" =~ '^## .*ahead' ]]; then
     [[ $_bureau_debug ]] && echo ahead 1>&2
-  #if $(echo "$_INDEX" | command grep -q '^## .*ahead'); then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
   fi
   if [[ "$_INDEX" =~ '^## .*behind' ]]; then
     [[ $_bureau_debug ]] && echo behind 1>&2
-  #if $(echo "$_INDEX" | command grep -q '^## .*behind'); then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
   fi
   if [[ "$_INDEX" =~ '^## .*diverged' ]]; then
     [[ $_bureau_debug ]] && echo diverged 1>&2
-  #if $(echo "$_INDEX" | command grep -q '^## .*diverged'); then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
   fi
 
@@ -80,6 +76,14 @@ bureau_git_status() {
 }
 
 bureau_git_prompt () {
+  # Return early if we aren't in a git folder
+  if [[ ! -d .git ]]; then
+    # Use git rev-parse because it's many orders of
+    # magnitude faster than git status (if not in git folder why waste your valuble time?)
+    if ! git rev-parse --git-dir &> /dev/null; then
+      return
+    fi
+  fi
   local _branch=$(bureau_git_branch)
   local _status=$(bureau_git_status)
   local _result=""
@@ -111,22 +115,17 @@ get_space () {
   local STR=$1$2
   local zero='%([BSUbfksu]|([FB]|){*})'
   local LENGTH=${#${(S%%)STR//$~zero/}}
-  local SPACES=""
-  (( LENGTH = ${COLUMNS} - $LENGTH - 1))
-
-  for i in {0..$LENGTH}
-    do
-      SPACES="$SPACES "
-    done
-
-  echo $SPACES
+  (( LENGTH = ${COLUMNS} - $LENGTH ))
+  # This is the fastest way I've found to repeat a character.
+  # way better than the original
+  printf " %.0s" {1..$LENGTH}
 }
 
 _1LEFT="$_USERNAME $_PATH"
 _1RIGHT="[%*] "
 
 bureau_precmd () {
-  _1SPACES=`get_space $_1LEFT $_1RIGHT`
+  _1SPACES=$(get_space $_1LEFT $_1RIGHT)
   print
   print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
