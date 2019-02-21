@@ -47,28 +47,27 @@ bureau_git_status() {
     [[ $_bureau_debug ]] && echo unmerged 1>&2
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNMERGED"
     fi
+     # check status of local repository
+    if [[ "$_INDEX" =~ '^## .*ahead' ]]; then
+        [[ $_bureau_debug ]] && echo ahead 1>&2
+        _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
+    fi
+    if [[ "$_INDEX" =~ '^## .*behind' ]]; then
+        [[ $_bureau_debug ]] && echo behind 1>&2
+        _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
+    fi
+    if [[ "$_INDEX" =~ '^## .*diverged' ]]; then
+        [[ $_bureau_debug ]] && echo diverged 1>&2
+        _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
+    fi
   else
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
-  fi
-  
-  # check status of local repository
-  if [[ "$_INDEX" =~ '^## .*ahead' ]]; then
-    [[ $_bureau_debug ]] && echo ahead 1>&2
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
-  fi
-  if [[ "$_INDEX" =~ '^## .*behind' ]]; then
-    [[ $_bureau_debug ]] && echo behind 1>&2
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
-  fi
-  if [[ "$_INDEX" =~ '^## .*diverged' ]]; then
-    [[ $_bureau_debug ]] && echo diverged 1>&2
-    _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
-  fi
+  fi   
 
   if command git rev-parse --verify refs/stash &> /dev/null; then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
   fi
-   RE_MATCH_PCRE="$_bureau_saved_RE_MATCH_PCRE"
+  RE_MATCH_PCRE="$_bureau_saved_RE_MATCH_PCRE"
   echo "$_STATUS"
 }
 
