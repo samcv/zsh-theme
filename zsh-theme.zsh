@@ -32,22 +32,18 @@ bureau_git_status() {
   if [[ -n "$_INDEX" ]]; then
     if [[ $_INDEX =~ "(^|$MYNLNOW)[AMRD]. " ]]; then
         [[ $_bureau_debug ]] && echo staged 1>&2
-    #if $(echo "$_INDEX" | command grep -q '^[AMRD]. '); then
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STAGED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW).[MTD] " ]]; then
     [[ $_bureau_debug ]] && echo unstaged 1>&2
-    #if $(echo "$_INDEX" | command grep -q '^.[MTD] '); then
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNSTAGED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW)\?\? " ]]; then
     [[ $_bureau_debug ]] && echo untracked 1>&2
-    #if $(echo "$_INDEX" | command grep -q -E '^\?\? '); then
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW)UU " ]]; then
     [[ $_bureau_debug ]] && echo unmerged 1>&2
-    #if $(echo "$_INDEX" | command grep -q '^UU '); then
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNMERGED"
     fi
   else
