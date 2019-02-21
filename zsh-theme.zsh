@@ -122,8 +122,7 @@ _1RIGHT="[%*] "
 
 bureau_precmd () {
   _1SPACES=$(get_space $_1LEFT $_1RIGHT)
-  print
-  print -rP "$_1LEFT$_1SPACES$_1RIGHT"
+  print -rP $'\n'"$_1LEFT$_1SPACES$_1RIGHT"
 }
 bureau_return_code () {
     print -r "%(?..%{$bg_bold[red]%}%? ↵%{$reset_color%})"
