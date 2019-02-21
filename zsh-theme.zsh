@@ -64,7 +64,7 @@ bureau_git_status() {
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
   fi
 
-  if $(command git rev-parse --verify refs/stash &> /dev/null); then
+  if command git rev-parse --verify refs/stash &> /dev/null; then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
   fi
    RE_MATCH_PCRE="$_bureau_saved_RE_MATCH_PCRE"
