@@ -126,7 +126,7 @@ bureau_precmd () {
   print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
 bureau_return_code () {
-    print "%(?..%{$bg_bold[red]%}%? ↵%{$reset_color%})"
+    print -r "%(?..%{$bg_bold[red]%}%? ↵%{$reset_color%})"
 }
 setopt prompt_subst
 PROMPT='> $_LIBERTY '
