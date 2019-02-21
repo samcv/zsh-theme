@@ -125,10 +125,12 @@ bureau_precmd () {
   print
   print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
-
+bureau_return_code () {
+    print "%(?..%{$bg_bold[red]%}%? ↵%{$reset_color%})"
+}
 setopt prompt_subst
 PROMPT='> $_LIBERTY '
-RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
+RPROMPT='$(bureau_return_code) $(bureau_git_prompt)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd bureau_precmd
