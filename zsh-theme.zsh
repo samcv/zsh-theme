@@ -68,7 +68,7 @@ bureau_git_status() {
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
   fi
   RE_MATCH_PCRE="$_bureau_saved_RE_MATCH_PCRE"
-  echo "$_STATUS"
+  print -r "$_STATUS"
 }
 
 bureau_git_prompt () {
@@ -90,7 +90,7 @@ bureau_git_prompt () {
     fi
     _result="$_result$ZSH_THEME_GIT_PROMPT_SUFFIX"
   fi
-  echo $_result
+  print -r $_result
 }
 
 
