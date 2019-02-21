@@ -17,8 +17,9 @@ ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg_bold[yellow]%}●%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[red]%}●%{$reset_color%}"
 
 bureau_git_branch () {
-  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+  ref=$(command git symbolic-ref HEAD 2> /dev/null) \
+  || ref=$(command git rev-parse --short HEAD 2> /dev/null) \
+  || return
   print -r "${ref#refs/heads/}"
 }
 
