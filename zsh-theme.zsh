@@ -25,10 +25,9 @@ bureau_git_branch () {
 }
 
 bureau_git_status() {
-  _STATUS=""
-    MYNLNOW=$'\n'
-    _bureau_saved_RE_MATCH_PCRE="$RE_MATCH_PCRE"
-    RE_MATCH_PCRE=1
+  local _STATUS=
+  local MYNLNOW=$'\n'
+  local RE_MATCH_PCRE=1
   # check status of files
   _INDEX=$(command git status -b -uno --porcelain 2> /dev/null)
   if [[ -n "$_INDEX" ]]; then
@@ -68,7 +67,6 @@ bureau_git_status() {
   if command git rev-parse --verify refs/stash &> /dev/null; then
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STASHED"
   fi
-  RE_MATCH_PCRE="$_bureau_saved_RE_MATCH_PCRE"
   print -r "$_STATUS"
 }
 
