@@ -32,33 +32,33 @@ bureau_git_status() {
   _INDEX=$(command git status -b -uno --porcelain 2> /dev/null)
   if [[ -n "$_INDEX" ]]; then
     if [[ $_INDEX =~ "(^|$MYNLNOW)[AMRD]. " ]]; then
-        [[ $_bureau_debug ]] && echo staged 1>&2
+      #[[ $_bureau_debug ]] && echo staged 1>&2
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_STAGED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW).[MTD] " ]]; then
-    [[ $_bureau_debug ]] && echo unstaged 1>&2
+      #[[ $_bureau_debug ]] && echo unstaged 1>&2
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNSTAGED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW)\?\? " ]]; then
-    [[ $_bureau_debug ]] && echo untracked 1>&2
+      #[[ $_bureau_debug ]] && echo untracked 1>&2
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED"
     fi
     if [[ $_INDEX =~ "(^|$MYNLNOW)UU " ]]; then
-    [[ $_bureau_debug ]] && echo unmerged 1>&2
+      #[[ $_bureau_debug ]] && echo unmerged 1>&2
       _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_UNMERGED"
     fi
      # check status of local repository
     if [[ "$_INDEX" =~ '^## .*ahead' ]]; then
-        [[ $_bureau_debug ]] && echo ahead 1>&2
+      #[[ $_bureau_debug ]] && echo ahead 1>&2
         _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_AHEAD"
     fi
     if [[ "$_INDEX" =~ '^## .*behind' ]]; then
-        [[ $_bureau_debug ]] && echo behind 1>&2
+      #[[ $_bureau_debug ]] && echo behind 1>&2
         _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_BEHIND"
     fi
     if [[ "$_INDEX" =~ '^## .*diverged' ]]; then
-        [[ $_bureau_debug ]] && echo diverged 1>&2
-        _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
+      #[[ $_bureau_debug ]] && echo diverged 1>&2
+      _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_DIVERGED"
     fi
   else
     _STATUS="$_STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
